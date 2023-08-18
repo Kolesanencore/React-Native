@@ -1,5 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+
+import { useState } from "react";
+
 import {
   Text,
   TextInput,
@@ -8,6 +10,7 @@ import {
   ImageBackground,
   View,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 
 import background from "../assets/background.jpg";
@@ -15,26 +18,39 @@ import avatar from "../assets/defaultAvatar.png";
 import addBtn from "../assets/addBtn.png";
 
 export default RegistrationScreen = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
       <ImageBackground source={background} style={styles.image}>
         <View style={styles.mainBox}>
           <View style={styles.avatarBox}>
             <Image source={avatar} style={styles.avatar} />
             <Image source={addBtn} style={styles.addBtn} />
           </View>
+
           <Text style={styles.title}>Реєстрація</Text>
           <TextInput style={styles.input} placeholder="Логін" />
           <TextInput
             style={styles.input}
             placeholder="Адреса електронної пошти"
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Пароль"
-            secureTextEntry
-          />
+          <View>
+            <TextInput
+              style={styles.input}
+              placeholder="Пароль"
+              secureTextEntry={!showPassword}
+            />
+            <TouchableOpacity
+              onPress={() => setShowPassword(!showPassword)}
+              style={styles.passwordInputBtn}>
+              <Text style={styles.showPassText}>
+                {" "}
+                {showPassword ? "Сховати" : "Показати"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           <TouchableOpacity style={styles.btnSignup} onPress={() => {}}>
             <Text style={styles.btnText}>Зареєстуватися</Text>
           </TouchableOpacity>
@@ -90,6 +106,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     marginBottom: 20,
+    textAlign: "center",
   },
   input: {
     width: 343,
@@ -100,6 +117,21 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingLeft: 16,
     backgroundColor: "#F6F6F6",
+  },
+  passwordInputBtn: {
+    height: 50,
+    width: 100,
+    position: "absolute",
+    top: 16,
+    right: 0,
+    textAlign: "center",
+    alignItems: "center",
+    color: "#000",
+  },
+  showPassText: {
+    fontSize: 16,
+    color: "#1B4371",
+    alignItems: "center",
   },
   btnSignup: {
     marginTop: 42,
