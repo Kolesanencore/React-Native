@@ -1,7 +1,8 @@
-// import RegistrationScreen from "./screens/RegistrationScreen";
-import LoginScreen from "./screens/LoginScreen";
+import RegistrationScreen from "./screens/RegistrationScreen";
+// import LoginScreen from "./screens/LoginScreen";
 
 import { useFonts } from "expo-font";
+// import PostsScreen from "./screens/PostsScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -12,6 +13,7 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  return <LoginScreen />;
-  // return <RegistrationScreen />;
+  // return <LoginScreen />;
+  return <RegistrationScreen />;
+  // return <PostsScreen />;
 }
