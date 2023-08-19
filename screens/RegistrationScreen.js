@@ -1,5 +1,3 @@
-import { StatusBar } from "expo-status-bar";
-
 import { useState } from "react";
 
 import {
@@ -11,6 +9,9 @@ import {
   View,
   Image,
   KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 
 import background from "../assets/background.jpg";
@@ -21,63 +22,69 @@ export default RegistrationScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <ImageBackground source={background} style={styles.image}>
-        <View style={styles.mainBox}>
-          <View style={styles.avatarBox}>
-            <Image source={avatar} style={styles.avatar} />
-            <Image source={addBtn} style={styles.addBtn} />
-          </View>
-
-          <Text style={styles.title}>Реєстрація</Text>
-          <TextInput style={styles.input} placeholder="Логін" />
-          <TextInput
-            style={styles.input}
-            placeholder="Адреса електронної пошти"
-          />
-          <View>
-            <TextInput
-              style={styles.input}
-              placeholder="Пароль"
-              secureTextEntry={!showPassword}
-            />
-            <TouchableOpacity
-              onPress={() => setShowPassword(!showPassword)}
-              style={styles.passwordInputBtn}>
-              <Text style={styles.showPassText}>
-                {" "}
-                {showPassword ? "Сховати" : "Показати"}
-              </Text>
+    <ImageBackground source={background} style={styles.image}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={styles.screenWrapper}
+            keyboardVerticalOffset={-180}>
+            <View style={styles.mainBox}>
+              <View style={styles.avatarBox}>
+                <Image source={avatar} style={styles.avatar} />
+                <Image source={addBtn} style={styles.addBtn} />
+              </View>
+              <Text style={styles.title}>Реєстрація</Text>
+              <TextInput style={styles.input} placeholder="Логін" />
+              <TextInput
+                style={styles.input}
+                placeholder="Адреса електронної пошти"
+              />
+              <View style={styles.passInput}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Пароль"
+                  secureTextEntry={!showPassword}
+                />
+                <TouchableOpacity
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={styles.passwordInputBtn}>
+                  <Text style={styles.showPassText}>
+                    {" "}
+                    {showPassword ? "Сховати" : "Показати"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </KeyboardAvoidingView>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.btnSignup} onPress={() => {}}>
+              <Text style={styles.btnText}>Зареєстуватися</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.btnLogin} onPress={() => {}}>
+              <Text style={styles.btnLogin}>Вже є акаунт? Увійти</Text>
             </TouchableOpacity>
           </View>
-
-          <TouchableOpacity style={styles.btnSignup} onPress={() => {}}>
-            <Text style={styles.btnText}>Зареєстуватися</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btnLogin} onPress={() => {}}>
-            <Text style={styles.btnLogin}>Вже є акаунт? Увійти</Text>
-          </TouchableOpacity>
         </View>
-      </ImageBackground>
-    </View>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  screenWrapper: { flex: 1, width: "100%", justifyContent: "flex-end" },
   container: {
     flex: 1,
+    justifyContent: "flex-end",
   },
   image: {
     flex: 1,
     width: "100%",
-    justifyContent: "flex-end",
   },
   mainBox: {
     width: "100%",
-    height: 549,
-    paddingTop: 70,
+    height: 550,
     paddingHorizontal: 16,
-    paddingBottom: 16,
     backgroundColor: "white",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
@@ -104,8 +111,9 @@ const styles = StyleSheet.create({
     bottom: 12,
   },
   title: {
+    paddingTop: 92,
     fontSize: 30,
-    marginBottom: 20,
+    marginBottom: 32,
     textAlign: "center",
   },
   input: {
@@ -133,8 +141,16 @@ const styles = StyleSheet.create({
     color: "#1B4371",
     alignItems: "center",
   },
+  buttonContainer: {
+    width: "100%",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingBottom: 78,
+    alignItems: "center",
+  },
   btnSignup: {
-    marginTop: 42,
     width: 343,
     height: 50,
     backgroundColor: "#FF6C00",
