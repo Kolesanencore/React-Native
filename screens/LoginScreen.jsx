@@ -17,6 +17,13 @@ import background from "../assets/background.jpg";
 
 export default LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    console.log("Email:", email);
+    console.log("Пароль:", password);
+  };
 
   return (
     <ImageBackground source={background} style={styles.image}>
@@ -31,12 +38,16 @@ export default LoginScreen = () => {
               <TextInput
                 style={styles.input}
                 placeholder="Адреса електронної пошти"
+                value={email}
+                onChangeText={setEmail}
               />
               <View style={styles.passInput}>
                 <TextInput
                   style={styles.input}
                   placeholder="Пароль"
                   secureTextEntry={!showPassword}
+                  value={password}
+                  onChangeText={setPassword}
                 />
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
@@ -50,11 +61,7 @@ export default LoginScreen = () => {
             </View>
           </KeyboardAvoidingView>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.btnSignup}
-              onPress={() => {
-                console.log("LOGIN");
-              }}>
+            <TouchableOpacity style={styles.btnSignup} onPress={handleLogin}>
               <Text style={styles.btnText}>Увійти</Text>
             </TouchableOpacity>
             <TouchableOpacity

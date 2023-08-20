@@ -20,6 +20,15 @@ import addBtn from "../assets/addBtn.png";
 
 export default RegistrationScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = () => {
+    console.log("Логін:", login);
+    console.log("Email:", email);
+    console.log("Пароль:", password);
+  };
 
   return (
     <ImageBackground source={background} style={styles.image}>
@@ -35,16 +44,25 @@ export default RegistrationScreen = () => {
                 <Image source={addBtn} style={styles.addBtn} />
               </View>
               <Text style={styles.title}>Реєстрація</Text>
-              <TextInput style={styles.input} placeholder="Логін" />
+              <TextInput
+                style={styles.input}
+                placeholder="Логін"
+                value={login}
+                onChangeText={setLogin}
+              />
               <TextInput
                 style={styles.input}
                 placeholder="Адреса електронної пошти"
+                value={email}
+                onChangeText={setEmail}
               />
               <View style={styles.passInput}>
                 <TextInput
                   style={styles.input}
                   placeholder="Пароль"
                   secureTextEntry={!showPassword}
+                  value={password}
+                  onChangeText={setPassword}
                 />
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
@@ -58,7 +76,7 @@ export default RegistrationScreen = () => {
             </View>
           </KeyboardAvoidingView>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.btnSignup} onPress={() => {}}>
+            <TouchableOpacity style={styles.btnSignup} onPress={handleSignup}>
               <Text style={styles.btnText}>Зареєстуватися</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnLogin} onPress={() => {}}>
